@@ -166,4 +166,4 @@ class Tumbao extends Component {
     }
 }
 
-export default Tumbao
+export default Tumbao;

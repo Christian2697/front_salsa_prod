@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prebuild": "find src -type f -name '*.jsx' | grep tumbao || echo 'tumbao.jsx not found'",
-    "build": "ls -la src/pages/usuarios/Tumbao/ && vite build",
+    "build": "ls -la src/pages/usuarios/tumbao/ && vite build",
     "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {

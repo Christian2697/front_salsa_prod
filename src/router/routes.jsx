@@ -7,7 +7,7 @@ import Home from '../pages/usuarios/index/Home';
 import AdminPanel from '../pages/admin/AdminPanel';
 import Login from '../pages/usuarios/login/Login';
 import Nosotros from '../pages/usuarios/index/Nosotros';
-import Tumbao from "../pages/usuarios/tumbao/tumbao.jsx";
+import Tumbao from "../pages/usuarios/tumbao/tumbao";
 import TumbaoReservation from '../pages/usuarios/tumbao/TumbaoReservation';
 import Recepcion from '../pages/recepcion/recepcion';
 import Usuarios from '../pages/admin/Usuarios';

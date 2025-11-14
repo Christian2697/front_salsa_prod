@@ -1,3 +1,4 @@
+import React from 'react';
 import { Component } from 'react';
 /* eslint-disable */
 import { motion } from 'framer-motion';

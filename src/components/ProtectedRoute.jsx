@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 class ProtectedRoute extends Component {

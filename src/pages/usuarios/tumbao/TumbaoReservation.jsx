@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Title from './TitleTumbao';
 import { Box, Container, Paper } from '@mui/material';
 /* eslint-disable */

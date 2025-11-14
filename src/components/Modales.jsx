@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Button, ConfigProvider, Modal, theme } from 'antd';
 import { ExclamationCircleFilled, CheckCircleFilled, WarningOutlined, InfoCircleFilled, CloseCircleFilled, WarningTwoTone, CheckCircleTwoTone, CloseCircleTwoTone, InfoCircleTwoTone, ExclamationCircleTwoTone } from '@ant-design/icons';
 import WarningOutlinedIcon from '@mui/icons-material/WarningOutlined';

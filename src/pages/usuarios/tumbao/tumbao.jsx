@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { motion } from 'framer-motion';
 import { Typography, Box, Container, Paper } from '@mui/material';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';

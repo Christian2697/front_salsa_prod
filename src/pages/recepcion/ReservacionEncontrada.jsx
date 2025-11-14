@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Component } from "react";
+import React, { Component } from "react";
 import { Box, Paper, Typography, Grid, Stack } from '@mui/material';
 import { Button, QRCode, } from 'antd';
 import { motion } from 'framer-motion';

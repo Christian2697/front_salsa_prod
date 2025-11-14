@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Box, Container, Paper, Typography } from '@mui/material';
 
 class Title extends Component {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     AppstoreOutlined,
     ContainerOutlined,
@@ -17,7 +17,7 @@ import { withRouter } from './withRouter';
 
 const { Header, Sider, Content } = Layout;
 
-class NavBarAdmin extends React.Component {
+class NavBarAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {

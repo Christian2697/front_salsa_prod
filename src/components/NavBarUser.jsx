@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Breadcrumb, Layout } from 'antd';
 import { Outlet, Link } from 'react-router-dom';
 import { 
@@ -23,7 +23,7 @@ const { Header, Content, Footer } = Layout;
 const pages = ['Nosotros'];
 const settings = ['Tumbao'];
 
-class NavBarUser extends React.Component {
+class NavBarUser extends Component {
   constructor(props) {
     super(props);
     this.state = {

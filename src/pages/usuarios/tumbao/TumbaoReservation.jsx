@@ -231,12 +231,10 @@ class TumbaoReservation extends Component {
       id_event: 1,
       id_typeReservation: this.state.id_typeReservation
     }
-    // limpia el error y continúa
-    this.setState({ errorMensaje: '' });
-    this.setState({ error: [] });
 
     // Aquí puedes enviar los datos al backend
     console.log('Enviando datos:', data);
+    console.log(`${this.state.url}/usuario/reservation`);
 
     try {
       const response = await fetch(`${this.state.url}/usuario/reservation`, {
@@ -276,7 +274,7 @@ class TumbaoReservation extends Component {
 
     } catch (e) {
       this.OnOffLoader(false, '');
-      this.setState({ "error": [{ "message": "Error de conexión con el servidor" + e, }] });
+      console.error(e, e.message);
       this.openNotificationWithIcon('error', 'Error con el servidor', e.message);
     }
 

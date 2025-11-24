@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from "react";
 import { motion } from 'framer-motion';
-import {  Box, } from '@mui/material';
+import { Box, } from '@mui/material';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import { Button, Empty, Table, Tooltip } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
@@ -18,6 +18,10 @@ class UsuariosList extends Component {
         const { searchParams: prevSearchParams } = prevProps;
         const { tableParams: currentTableParams } = this.props;
         const { tableParams: prevTableParams } = prevProps;
+
+        if (prevProps.tableParams === currentTableParams && prevProps.searchParams === currentSearchParams) {
+            return;
+        }
 
         if (
             currentTableParams.pagination?.current !== prevTableParams.pagination?.current ||

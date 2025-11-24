@@ -67,7 +67,7 @@ class Unauthorized extends Component {
       this.OnOffLoader(false);
       const resp = await response.json();
       if (response.ok) {
-        auth.updateAuthentication(false);
+        auth.updateAuthentication(resp.authenticated);
         console.log( response.status, resp.mensaje);
         this.openNotificationWithIcon('success', 'Éxito', resp.mensaje);
         navigate('/admin/login');

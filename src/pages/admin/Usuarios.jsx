@@ -10,6 +10,8 @@ import Title from './TitleAdmin';
 import config from '../../ENV/env';
 import UsuariosList from './UsuariosList';
 import UsuariosForm from './UsuariosForm';
+import { withRouter } from '../../components/withRouter.jsx';
+import { withAuth } from '../../context/withAuth.jsx';
 // import modal from '../../components/ModalCustom'
 
 const { Search } = Input;
@@ -39,7 +41,7 @@ class Usuarios extends Component {
             onCancel: () => { },
         },
         usuarios: [],
-        // loading: false,
+        fecthInProgress: false,
         tableParams: {
             pagination: {
                 current: 1,
@@ -135,7 +137,8 @@ class Usuarios extends Component {
     OnOffLoader = (loader, message) => {
         this.setState({
             isLoader: loader,
-            messageLoader: message
+            messageLoader: message,
+            fecthInProgress: loader,
         });
     };
 
@@ -160,6 +163,7 @@ class Usuarios extends Component {
 
         this.OnOffLoader(true, 'Buscando Usuarios...');
         const { tableParams, url, searchParams } = this.state;
+        const { auth, navigate } = this.props;
         const data = {
             search: searchParams,
             page: tableParams.pagination.current,
@@ -177,13 +181,13 @@ class Usuarios extends Component {
             const response = await fetch(`${url}/admin/search-users`, {
                 method: 'POST',
                 body: JSON.stringify(data),
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
             console.log('2. Fetch completado. Status:', response.status);
-            this.OnOffLoader(false, '');
 
             // Siempre esperar JSON
             const resp = await response.json();
@@ -205,10 +209,16 @@ class Usuarios extends Component {
                     },
                 });
                 console.log('Usuarios obtenidos correctamente');
+            } else if (response.status === 401) {
+                console.log(resp.error);
+                auth.updateAuthentication(resp.authenticated);
+                navigate('/admin/login', { replace: true });
+                throw new Error(resp.error);
             } else {
                 // Si el servidor respondió con error pero envió JSON
-                throw new Error(resp.mensaje, resp.error || 'Error del servidor');
+                throw new Error(resp.error || 'Error del servidor');
             }
+            this.OnOffLoader(false, '');
 
         } catch (e) {
             console.log('4. Error:', e);
@@ -220,6 +230,12 @@ class Usuarios extends Component {
     fetchList = async () => {
         this.OnOffLoader(true, 'Obteniendo Usuarios...');
         const { tableParams, url } = this.state;
+        const { auth, navigate } = this.props;
+        if (this.state.fecthInProgress) {
+            console.log('Se cancela fecthList, porque ya está en progreso');
+            return;
+        }
+        console.log('Inicia fecthList');
 
         // Parámetros DIRECTOS sin transformación
         const data = {
@@ -238,13 +254,13 @@ class Usuarios extends Component {
             const response = await fetch(`${url}/admin/get-users`, {
                 method: 'POST',
                 body: JSON.stringify(data),
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
             console.log('2. Fetch completado. Status:', response.status);
-            this.OnOffLoader(false, '');
 
             // Siempre esperar JSON
             const resp = await response.json();
@@ -263,11 +279,16 @@ class Usuarios extends Component {
                     },
                 });
                 console.log('Usuarios obtenidos correctamente');
+            } else if (response.status === 401) {
+                console.log(resp.error);
+                auth.updateAuthentication(resp.authenticated);
+                navigate('/admin/login', { replace: true });
+                throw new Error(resp.error);
             } else {
                 // Si el servidor respondió con error pero envió JSON
-                throw new Error(resp.mensaje, resp.error || 'Error del servidor');
+                throw new Error(resp.error || 'Error del servidor');
             }
-
+            this.OnOffLoader(false, '');
         } catch (e) {
             console.log('4. Error:', e);
             this.OnOffLoader(false, '');
@@ -277,7 +298,8 @@ class Usuarios extends Component {
 
     handleSubmitUser = async (e) => {
         e.preventDefault();
-        const { user, url, isAdd } = this.state
+        const { user, url, isAdd } = this.state;
+        const { auth, navigate } = this.props;
         let id;
         let data = { ...user };
         if (isAdd) {
@@ -295,6 +317,7 @@ class Usuarios extends Component {
                 response = await fetch(`${url}/admin/user`, {
                     method: 'POST',
                     body: JSON.stringify(data),
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -303,6 +326,7 @@ class Usuarios extends Component {
                 response = await fetch(`${url}/admin/user/${id}`, {
                     method: 'PUT',
                     body: JSON.stringify(data),
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -325,6 +349,12 @@ class Usuarios extends Component {
                 console.error(resp.error);
                 this.openNotificationWithIcon('error', 'Error al actualizar usuario', resp.error);
                 return;
+
+            } else if (response.status === 401) {
+                console.log(resp.error);
+                auth.updateAuthentication(resp.authenticated);
+                navigate('/admin/login', { replace: true });
+                throw new Error(resp.error);
 
             } else if (response.ok) {
                 console.log('Éxito', resp)
@@ -366,11 +396,13 @@ class Usuarios extends Component {
     };
 
     deleteUser = async (id) => {
+        const { auth, navigate } = this.props;
         this.OnOffLoader(true, 'Eliminando Usuario...');
         try {
             const response = await fetch(`${this.state.url}/admin/user/${id}`, {
                 method: 'DELETE',
                 body: JSON.stringify([id]),
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -381,14 +413,18 @@ class Usuarios extends Component {
                 console.log(resp, resp.result);
                 this.openNotificationWithIcon('success', 'Eliminado satisfactoriamente', resp.mensaje);
                 this.fetchList();
+            } else if (response.status === 401) {
+                console.log(resp.error);
+                auth.updateAuthentication(resp.authenticated);
+                navigate('/admin/login', { replace: true });
+                throw new Error(resp.error);
             } else {
-                this.openNotificationWithIcon('error', `Error del servidor: \n Status: ${response.status} \n Mensaje: ${resp.error}`);
-                throw new Error(`Error del servidor: \n Status: ${response.status} \n Mensaje: ${resp.error}`);
+                throw new Error(resp.error || 'Error del servidor');
             }
 
         } catch (e) {
-            console.error('Error al eliminar el usuario seleecionado: \n', e.message);
-            this.openNotificationWithIcon('error', 'Error al eliminar usuario \n', e.message);
+            console.error('Error al eliminar el usuario seleecionado:', e.message);
+            this.openNotificationWithIcon('error', 'Error al eliminar usuario', e.message);
         }
     };
 
@@ -413,6 +449,7 @@ class Usuarios extends Component {
     };
 
     editUser = async (id) => {
+        const { auth, navigate } = this.props;
         this.setState({ isAdd: false });
         this.OnOffLoader(true, 'Extrayendo info de Usuario...');
         console.log([id]);
@@ -420,6 +457,7 @@ class Usuarios extends Component {
             const response = await fetch(`${this.state.url}/admin/usersID`, {
                 method: 'POST',
                 body: JSON.stringify([id]),
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -431,6 +469,11 @@ class Usuarios extends Component {
                 console.log(user)
                 this.setState({ user: user });
                 this.updateEstado(1);
+            } else if (response.status === 401) {
+                console.log(resp.error);
+                auth.updateAuthentication(resp.authenticated);
+                navigate('/admin/login', { replace: true });
+                throw new Error(resp.error);
             } else {
                 this.openNotificationWithIcon('error', `Error del servidor: \n Status: ${response.status} \n Mensaje: ${resp.error}`);
                 throw new Error(`Error del servidor: \n Status: ${response.status} \n Mensaje: ${resp.error}`);
@@ -569,4 +612,5 @@ class Usuarios extends Component {
     }
 }
 
-export default Usuarios;
+// eslint-disable-next-line react-refresh/only-export-components
+export default withRouter(withAuth(Usuarios));

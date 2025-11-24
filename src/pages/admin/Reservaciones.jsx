@@ -520,7 +520,7 @@ class Reservaciones extends Component {
                     position: 'relative',
                     width: '100%',
                     px: 0,
-                    py: 4
+                    py: 0
                 }}>
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}

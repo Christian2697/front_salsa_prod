@@ -150,7 +150,7 @@ class NavBarAdmin extends Component {
                         <Content
                             style={{
                                 margin: '24px 16px',
-                                padding: 24,
+                                padding: 15,
                                 minHeight: 280,
                                 background: colorBgContainer,
                                 borderRadius: borderRadiusLG,

@@ -433,7 +433,7 @@ class Reservaciones extends Component {
     deleteUser = async (id) => {
         this.OnOffLoader(true, 'Eliminando Usuario...');
         try {
-            const response = await fetch(`${this.state.url}/admin/user/${id}`, {
+            const response = await fetch(`${this.state.url}/admin/reservation/${id}`, {
                 method: 'DELETE',
                 body: JSON.stringify([id]),
                 headers: {
@@ -447,13 +447,12 @@ class Reservaciones extends Component {
                 this.openNotificationWithIcon('success', 'Eliminado satisfactoriamente', resp.mensaje);
                 this.fetchList();
             } else {
-                this.openNotificationWithIcon('error', `Error del servidor: \n Status: ${response.status} \n Mensaje: ${resp.error}`);
-                throw new Error(`Error del servidor: \n Status: ${response.status} \n Mensaje: ${resp.error}`);
+                throw new Error(resp.error ? resp.error : 'Error del servidor');
             }
 
         } catch (e) {
-            console.error('Error al eliminar el usuario seleecionado: \n', e.message);
-            this.openNotificationWithIcon('error', 'Error al eliminar usuario \n', e.message);
+            console.error('Error al eliminar la reservación seleccionada: \n', e.message);
+            this.openNotificationWithIcon('error', 'Error al eliminar reservación \n', e.message);
         }
     };
 

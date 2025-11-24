@@ -15,6 +15,8 @@ import Recepcion from '../pages/recepcion/recepcion';
 import Usuarios from '../pages/admin/Usuarios';
 import NavBarAdmin from '../components/NavBarAdmin';
 import Unauthorized from '../pages/usuarios/index/Unauthorized';
+import Reservaciones from '../pages/admin/Reservaciones';
+import NotFound from '../pages/usuarios/index/NotFound';
 
 class AppRoutes extends Component {
   render() {
@@ -32,12 +34,13 @@ class AppRoutes extends Component {
         <Route path="/admin" element={<NavBarAdmin />}>
         <Route path="login" element={<Login />} />
         <Route path="unauthorized" element={<Unauthorized />} />
+        <Route path="notfound" element={<NotFound />} />
         <Route path="adminpanel" element={<AdminPanel />} />
           {/* Protección de autenticación - se aplica a todas las rutas dentro */}
           <Route element={<ProtectedRoute />}>
             {/* Protección por rol para administrador */}
             <Route element={<RoleRoute allowedRoles={['administrador']} />}>
-              
+              <Route path="reservaciones" element={<Reservaciones />} />
               <Route path="usuarios" element={<Usuarios />} />
             </Route>
             
@@ -53,7 +56,7 @@ class AppRoutes extends Component {
         </Route>
 
         {/* Ruta por defecto */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/notfound" replace />} />
       </Routes>
     )
   }

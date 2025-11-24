@@ -8,21 +8,21 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CustomModal from '../../components/Modales';
 import Title from './TitleAdmin';
 import config from '../../ENV/env';
-import UsuariosList from './UsuariosList';
 import UsuariosForm from './UsuariosForm';
+import ReservacionesList from './ReservacionesList';
 // import modal from '../../components/ModalCustom'
 
 const { Search } = Input;
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
-class Usuarios extends Component {
+class Reservaciones extends Component {
 
     state = {
         estado: 0,
-        titleAdmin: 'Usuarios',
+        titleAdmin: 'Reservaciones',
         searchParams: '',
-        user: {},
+        reservation: {},
         url: config.urlBack,
         isDarkMode: true,
         isAdd: false,
@@ -38,8 +38,7 @@ class Usuarios extends Component {
             onOk: () => { },
             onCancel: () => { },
         },
-        usuarios: [],
-        // loading: false,
+        reservaciones: [],
         tableParams: {
             pagination: {
                 current: 1,
@@ -49,23 +48,71 @@ class Usuarios extends Component {
         columns: [
             {
                 title: 'id',
-                dataIndex: 'id_user',
-                width: '10%',
+                dataIndex: 'id_reservation',
+                // width: '10%',
             },
             {
-                title: 'Nombre',
-                dataIndex: 'name',
+                title: 'Fecha de creación',
+                dataIndex: 'reservationDate',
                 sorter: true,
-                width: '20%',
+                // width: '20%',
             },
             {
-                title: 'Apellido',
-                dataIndex: 'lastname',
-                width: '20%',
+                title: 'Nombre de la Reservación',
+                dataIndex: 'nameReservation',
+                sorter: true,
+                // width: '20%',
             },
             {
-                title: 'Email',
-                dataIndex: 'email',
+                title: 'Evento',
+                dataIndex: 'event_name',
+                filters: [
+                    {
+                        text: 'Tumbao',
+                        value: 'Tumbao',
+                    },
+                    {
+                        text: 'Xtreme',
+                        value: 'Xtreme',
+                    },
+                    {
+                        text: 'Rumba',
+                        value: 'Rumba',
+                    },
+                    {
+                        text: 'Salsa',
+                        value: 'Salsa',
+                    },
+
+                ],
+                // onFilter: (value, record) => record.event_name.indexOf(value) === 0,
+            },
+            {
+                title: 'Tipo de Reservación',
+                dataIndex: 'typeReservation',
+                filters: [
+                    {
+                        text: 'Preventa',
+                        value: 'Preventa',
+                    },
+                    {
+                        text: 'Cortesía',
+                        value: 'Cortesía',
+                    },
+                    {
+                        text: 'Bailarines',
+                        value: 'Bailarines',
+                    },
+
+                ],
+            },
+            {
+                title: '# Mesa Asignada',
+                dataIndex: 'numMesa',
+            },
+            {
+                title: '# Asistentes',
+                dataIndex: 'numAsistentes',
             },
             {
                 title: 'Editar',
@@ -73,7 +120,7 @@ class Usuarios extends Component {
                 key: 'x',
                 render: (_, record) =>
                     <Tooltip title="Editar">
-                        <Button shape="circle" icon={<EditOutlined />} onClick={() => this.editUser(record.id_user)} />
+                        <Button shape="circle" icon={<EditOutlined />} onClick={() => this.editUser(record.id_reservation)} />
                     </Tooltip>
                 ,
             },
@@ -83,14 +130,14 @@ class Usuarios extends Component {
                 key: 'x',
                 render: (_, record) =>
                     <Tooltip title="Eliminar">
-                        <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteUser(record.id_user, record.name, record.lastname)} />
+                        <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteUser(record.id_reservation, record.nameReservation)} />
                     </Tooltip>,
             },
         ]
     }
 
     clearUser = () => {
-        this.setState({ user: {} })
+        this.setState({ reservation: {} })
     }
 
     updateEstado = (value) => {
@@ -141,8 +188,8 @@ class Usuarios extends Component {
 
     handleFormAsisChange = (e) => {
         this.setState({
-            user: {
-                ...this.state.user,
+            reservation: {
+                ...this.state.reservation,
                 [e.name]: e.value
             }
         });
@@ -158,7 +205,7 @@ class Usuarios extends Component {
             return;
         }
 
-        this.OnOffLoader(true, 'Buscando Usuarios...');
+        this.OnOffLoader(true, 'Buscando Reservaciones...');
         const { tableParams, url, searchParams } = this.state;
         const data = {
             search: searchParams,
@@ -170,6 +217,15 @@ class Usuarios extends Component {
         if (tableParams.sortField) {
             data.sortBy = tableParams.sortField;
             data.sortOrder = tableParams.sortOrder === 'ascend' ? 'asc' : 'desc';
+        }
+
+        // Si hay filtros
+        if (tableParams.filters) {
+            Object.keys(tableParams.filters).forEach(key => {
+                if (tableParams.filters[key]) {
+                    data[key] = tableParams.filters[key];
+                }
+            });
         }
 
         console.log('Datos a enviar al Back: ', data);
@@ -191,7 +247,7 @@ class Usuarios extends Component {
 
             if (response.ok) {
                 if (resp.data.length === 0) {
-                    this.openNotificationWithIcon('info', 'Sin resultados', 'No se encontraron usuarios con los parámetros ingresados');
+                    this.openNotificationWithIcon('info', 'Sin resultados', 'No se encontraron reservaciones con los parámetros ingresados');
                 }
                 // Si response.ok es true (status 200-299)
                 this.setState({
@@ -204,7 +260,7 @@ class Usuarios extends Component {
                         },
                     },
                 });
-                console.log('Usuarios obtenidos correctamente');
+                console.log('Reservaciones obtenidas correctamente');
             } else {
                 // Si el servidor respondió con error pero envió JSON
                 throw new Error(resp.mensaje, resp.error || 'Error del servidor');
@@ -213,12 +269,12 @@ class Usuarios extends Component {
         } catch (e) {
             console.log('4. Error:', e);
             this.OnOffLoader(false, '');
-            this.openNotificationWithIcon('error', 'Error al buscar usuarios', e.message);
+            this.openNotificationWithIcon('error', 'Error al buscar reservaciones', e.message);
         }
     };
 
     fetchList = async () => {
-        this.OnOffLoader(true, 'Obteniendo Usuarios...');
+        this.OnOffLoader(true, 'Obteniendo Reservaciones...');
         const { tableParams, url } = this.state;
 
         // Parámetros DIRECTOS sin transformación
@@ -231,11 +287,20 @@ class Usuarios extends Component {
         if (tableParams.sortField) {
             data.sortBy = tableParams.sortField;
             data.sortOrder = tableParams.sortOrder === 'ascend' ? 'asc' : 'desc';
-        }
+        };
+
+        // Si hay filtros, agregarlos
+        if (tableParams.filters) {
+            Object.keys(tableParams.filters).forEach(key => {
+                if (tableParams.filters[key]) {
+                    data[key] = tableParams.filters[key];
+                }
+            });
+        };
 
         console.log('Datos a enviar al Back: ', data);
         try {
-            const response = await fetch(`${url}/admin/get-users`, {
+            const response = await fetch(`${url}/admin/get-reserv`, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -253,7 +318,7 @@ class Usuarios extends Component {
             if (response.ok) {
                 // Si response.ok es true (status 200-299)
                 this.setState({
-                    usuarios: Array.isArray(resp.data) ? resp.data : [],
+                    reservaciones: Array.isArray(resp.data) ? resp.data : [],
                     tableParams: {
                         ...tableParams,
                         pagination: {
@@ -262,7 +327,7 @@ class Usuarios extends Component {
                         },
                     },
                 });
-                console.log('Usuarios obtenidos correctamente');
+                console.log('Reservaciones obtenidas correctamente');
             } else {
                 // Si el servidor respondió con error pero envió JSON
                 throw new Error(resp.mensaje, resp.error || 'Error del servidor');
@@ -271,7 +336,7 @@ class Usuarios extends Component {
         } catch (e) {
             console.log('4. Error:', e);
             this.OnOffLoader(false, '');
-            this.openNotificationWithIcon('error', 'Error al obtener usuarios', e.message);
+            this.openNotificationWithIcon('error', 'Error al obtener reservaciones', e.message);
         }
     };
 
@@ -281,13 +346,13 @@ class Usuarios extends Component {
         let id;
         let data = { ...user };
         if (isAdd) {
-            this.OnOffLoader(true, 'Agregando Usuario Nuevo...');
+            this.OnOffLoader(true, 'Agregando Reservación Nueva...');
         } else {
-            this.OnOffLoader(true, 'Actualizando Usuario...');
+            this.OnOffLoader(true, 'Actualizando Reservación...');
             id = user.id_user;
             delete data.id_user;
         }
-        console.log('Datos a enviar para actualizar o agregar usuario: ', data);
+        console.log('Datos a enviar para actualizar o agregar reservación: ', data);
 
         try {
             let response;
@@ -323,12 +388,12 @@ class Usuarios extends Component {
                 return;
             } else if (response.status === 409) {
                 console.error(resp.error);
-                this.openNotificationWithIcon('error', 'Error al actualizar usuario', resp.error);
+                this.openNotificationWithIcon('error', 'Error al actualizar reservación', resp.error);
                 return;
 
             } else if (response.ok) {
                 console.log('Éxito', resp)
-                this.openNotificationWithIcon('success', resp.mensaje, isAdd ? 'Usuario almacenado exitosamente en la BD' : `Todo en orden con el usuario con id: ${id}`);
+                this.openNotificationWithIcon('success', resp.mensaje, isAdd ? 'Reservación almacenada exitosamente en la BD' : `Todo en orden con la reservación con id: ${id}`);
                 this.updateEstado(0);
                 this.clearUser();
                 this.setState({ isAdd: false });
@@ -355,7 +420,7 @@ class Usuarios extends Component {
         });
 
         if (pagination.pageSize !== this.state.tableParams.pagination?.pageSize) {
-            this.setState({ usuarios: [] });
+            this.setState({ reservaciones: [] });
         }
     };
 
@@ -392,12 +457,12 @@ class Usuarios extends Component {
         }
     };
 
-    isDeleteUser = (id, name, lastname) => {
-        console.log(id, name, lastname);
+    isDeleteUser = (id, name) => {
+        console.log(id, name);
         this.openModal({
             typeModal: 'delete',
             titleModal: 'Eliminación en proceso',
-            bodyModal: `¿Seguro que deseas eliminar al usuario ${name} ${lastname}? `,
+            bodyModal: `¿Seguro que deseas eliminar la reservación ${name} ? `,
             okText: 'Aceptar',
             cancelText: 'Cancelar',
             onOk: () => {
@@ -446,7 +511,7 @@ class Usuarios extends Component {
 
 
     render() {
-        const { usuarios, isDarkMode, isLoader, messageLoader, columns, tableParams, estado, user, isAdd, searchParams } = this.state
+        const { reservaciones, isDarkMode, isLoader, messageLoader, columns, tableParams, estado, reservation, isAdd, searchParams } = this.state
 
         return (
             <ConfigProvider theme={{
@@ -522,9 +587,9 @@ class Usuarios extends Component {
                                         switch (estado) {
                                             case 0:
                                                 return (
-                                                    <UsuariosList
+                                                    <ReservacionesList
                                                         columns={columns}
-                                                        usuarios={usuarios}
+                                                        reservaciones={reservaciones}
                                                         tableParams={tableParams}
                                                         searchParams={searchParams}
                                                         isLoader={isLoader}
@@ -538,7 +603,7 @@ class Usuarios extends Component {
                                             case 1:
                                                 return (
                                                     <UsuariosForm
-                                                        userEdit={user}
+                                                        userEdit={reservation}
                                                         isAdd={isAdd}
                                                         clearUserEdit={this.clearUser}
                                                         updateEstado={this.updateEstado}
@@ -569,4 +634,4 @@ class Usuarios extends Component {
     }
 }
 
-export default Usuarios;
+export default Reservaciones;

@@ -102,6 +102,7 @@ class Login extends Component {
 
   registerClick = () => {
     const { isRegister } = this.state;
+    this.clearForm();
     this.setState({ 
       isRegister: !isRegister,
       title: !isRegister ? 'Register' : 'Login'

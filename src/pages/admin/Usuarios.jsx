@@ -498,8 +498,7 @@ class Usuarios extends Component {
                 <Container sx={{
                     position: 'relative',
                     width: '100%',
-                    px: 0,
-                    py: 2
+                    p: 0
                 }}>
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}

@@ -28,13 +28,13 @@ class AppRoutes extends Component {
           <Route path="nosotros" element={<Nosotros />} />
           <Route path="tumbao" element={<Tumbao />} />
           <Route path="tumbao/reservation" element={<TumbaoReservation />} />
+          <Route path="notfound" element={<NotFound />} />
         </Route>
 
         {/* Rutas protegidas del admin */}
         <Route path="/admin" element={<NavBarAdmin />}>
         <Route path="login" element={<Login />} />
         <Route path="unauthorized" element={<Unauthorized />} />
-        <Route path="notfound" element={<NotFound />} />
         <Route path="adminpanel" element={<AdminPanel />} />
           {/* Protección de autenticación - se aplica a todas las rutas dentro */}
           <Route element={<ProtectedRoute />}>

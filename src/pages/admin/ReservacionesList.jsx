@@ -82,7 +82,7 @@ class ReservacionesList extends Component {
                                         // y: 'calc(100vh - 300px)', // Altura fija para scroll vertical (ajusta según necesites)
                                     }}
                                     size="middle" // Tamaño de la tabla
-                                    bordered={true} // Bordes para mejor visualización
+                                    bordered={false} // Bordes para mejor visualización
                                     style={{
                                         width: '100%', // Ocupa todo el ancho disponible
                                     }}

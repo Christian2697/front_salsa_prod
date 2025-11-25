@@ -59,6 +59,7 @@ class Usuarios extends Component {
                 dataIndex: 'name',
                 sorter: true,
                 width: '20%',
+                fixed: 'left',
             },
             {
                 title: 'Apellido',
@@ -73,6 +74,7 @@ class Usuarios extends Component {
                 title: 'Editar',
                 dataIndex: '',
                 key: 'x',
+                fixed: 'right',
                 render: (_, record) =>
                     <Tooltip title="Editar">
                         <Button shape="circle" icon={<EditOutlined />} onClick={() => this.editUser(record.id_user)} />
@@ -83,6 +85,7 @@ class Usuarios extends Component {
                 title: 'Eliminar',
                 dataIndex: '',
                 key: 'x',
+                fixed: 'right',
                 render: (_, record) =>
                     <Tooltip title="Eliminar">
                         <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteUser(record.id_user, record.name, record.lastname)} />

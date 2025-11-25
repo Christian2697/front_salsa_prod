@@ -49,23 +49,25 @@ class Reservaciones extends Component {
             {
                 title: 'id',
                 dataIndex: 'id_reservation',
-                // width: '10%',
+                width: 5,
             },
             {
                 title: 'Fecha de creación',
                 dataIndex: 'reservationDate',
                 sorter: true,
-                // width: '20%',
+                width: '8%',
             },
             {
                 title: 'Nombre de la Reservación',
                 dataIndex: 'nameReservation',
                 sorter: true,
-                // width: '20%',
+                fixed: 'left',
+                width: 100,
             },
             {
                 title: 'Evento',
                 dataIndex: 'event_name',
+                width: 5,
                 filters: [
                     {
                         text: 'Tumbao',
@@ -90,6 +92,7 @@ class Reservaciones extends Component {
             {
                 title: 'Tipo de Reservación',
                 dataIndex: 'typeReservation',
+                width: 10,
                 filters: [
                     {
                         text: 'Preventa',
@@ -107,17 +110,21 @@ class Reservaciones extends Component {
                 ],
             },
             {
-                title: '# Mesa Asignada',
+                title: 'Mesa Asignada',
                 dataIndex: 'numMesa',
+                width: 5,
             },
             {
-                title: '# Asistentes',
+                title: 'Asistentes',
                 dataIndex: 'numAsistentes',
+                width: 5,
             },
             {
-                title: 'Editar',
+                title: '-',
                 dataIndex: '',
                 key: 'x',
+                width: 5,
+                fixed: 'right',
                 render: (_, record) =>
                     <Tooltip title="Editar">
                         <Button shape="circle" icon={<EditOutlined />} onClick={() => this.editUser(record.id_reservation)} />
@@ -125,9 +132,11 @@ class Reservaciones extends Component {
                 ,
             },
             {
-                title: 'Eliminar',
+                title: '-',
                 dataIndex: '',
                 key: 'x',
+                width: 5,
+                fixed: 'right',
                 render: (_, record) =>
                     <Tooltip title="Eliminar">
                         <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteUser(record.id_reservation, record.nameReservation)} />

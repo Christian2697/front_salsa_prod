@@ -77,6 +77,15 @@ class ReservacionesList extends Component {
                                     pagination={tableParams.pagination}
                                     loading={isLoader}
                                     onChange={handleTableChange}
+                                    scroll={{
+                                        x: 'max-content', // Scroll horizontal cuando sea necesario
+                                        // y: 'calc(100vh - 300px)', // Altura fija para scroll vertical (ajusta según necesites)
+                                    }}
+                                    size="middle" // Tamaño de la tabla
+                                    bordered={true} // Bordes para mejor visualización
+                                    style={{
+                                        width: '100%', // Ocupa todo el ancho disponible
+                                    }}
                                 />
 
                             </Box>

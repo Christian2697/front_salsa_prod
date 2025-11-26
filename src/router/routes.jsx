@@ -16,7 +16,7 @@ import NavBarAdmin from '../components/NavBarAdmin';
 import Unauthorized from '../pages/usuarios/index/Unauthorized';
 import ReservGroup from '../pages/admin/reservaciones/grupal/ReservGroup';
 import NotFound from '../pages/usuarios/index/NotFound';
-import Usuarios from '../pages/admin/Usuarios/Usuarios';
+import Usuarios from '../pages/admin/usuarios/Usuarios';
 import ReservPerson from '../pages/admin/reservaciones/personal/ReservPerson';
 
 class AppRoutes extends Component {

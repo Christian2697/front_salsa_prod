@@ -162,7 +162,7 @@ class Recepcion extends Component {
         console.log('1. Iniciando búsqueda QR:', searchValue);
 
         try {
-            const response = await fetch(`${url}/admin/recep-qr`, {
+            const response = await fetch(`${url}/admin/recep/search-qr`, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -293,7 +293,7 @@ class Recepcion extends Component {
         }
 
         try {
-            const response = await fetch(`${url}/admin/update-recep`, {
+            const response = await fetch(`${url}/admin/recep/update-qr`, {
                 method: 'PATCH',
                 body: JSON.stringify(data),
                 headers: {

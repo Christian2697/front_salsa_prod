@@ -12,11 +12,12 @@ import Nosotros from '../pages/usuarios/index/Nosotros';
 import Tumbao from "../pages/usuarios/tumbao/tumbao";
 import TumbaoReservation from '../pages/usuarios/tumbao/TumbaoReservation';
 import Recepcion from '../pages/recepcion/recepcion';
-import Usuarios from '../pages/admin/Usuarios';
 import NavBarAdmin from '../components/NavBarAdmin';
 import Unauthorized from '../pages/usuarios/index/Unauthorized';
-import Reservaciones from '../pages/admin/Reservaciones';
+import ReservGroup from '../pages/admin/reservaciones/grupal/ReservGroup';
 import NotFound from '../pages/usuarios/index/NotFound';
+import Usuarios from '../pages/admin/Usuarios/Usuarios';
+import ReservPerson from '../pages/admin/reservaciones/personal/ReservPerson';
 
 class AppRoutes extends Component {
   render() {
@@ -40,7 +41,8 @@ class AppRoutes extends Component {
           <Route element={<ProtectedRoute />}>
             {/* Protección por rol para administrador */}
             <Route element={<RoleRoute allowedRoles={['administrador']} />}>
-              <Route path="reservaciones" element={<Reservaciones />} />
+              <Route path="reserv/group" element={<ReservGroup />} />
+              <Route path="reserv/person" element={<ReservPerson />} />
               <Route path="usuarios" element={<Usuarios />} />
             </Route>
             

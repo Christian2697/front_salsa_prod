@@ -7,7 +7,7 @@ import { Button, Empty, Table, Tooltip } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 
 
-class ReservacionesList extends Component {
+class ReservPersonList extends Component {
 
     componentDidMount() {
         this.props.fetchData();
@@ -84,6 +84,7 @@ class ReservacionesList extends Component {
                                     size="middle" // Tamaño de la tabla
                                     bordered={false} // Bordes para mejor visualización
                                     style={{
+                                        marginTop: 10,
                                         width: '100%', // Ocupa todo el ancho disponible
                                     }}
                                 />
@@ -98,4 +99,4 @@ class ReservacionesList extends Component {
     }
 }
 
-export default ReservacionesList;
+export default ReservPersonList;

@@ -35,7 +35,8 @@ class NavBarAdmin extends Component {
         // Mapeo de keys a rutas
         const routeMap = {
             'usuarios': '/admin/usuarios',
-            'reservaciones': '/admin/reservaciones',
+            'reservaciones grupales': '/admin/reserv/group',
+            'reservaciones personales': '/admin/reserv/person',
             'mesas': '/admin/mesas',
             'reportes': '/admin/reportes',
             'recepcion': '/admin/recepcion'
@@ -97,9 +98,21 @@ class NavBarAdmin extends Component {
                                             label: 'Usuarios'
                                         },
                                         {
-                                            key: 'reservaciones',
+                                            key: 'sub1.2',
                                             icon: <ContainerOutlined />,
-                                            label: 'Reservaciones'
+                                            label: 'Reservaciones',
+                                            children: [
+                                                {
+                                                    key: 'reservaciones grupales',
+                                                    icon: <ContainerOutlined />,
+                                                    label: 'Grupales'
+                                                },
+                                                {
+                                                    key: 'reservaciones personales',
+                                                    icon: <ContainerOutlined />,
+                                                    label: 'Personales'
+                                                },
+                                            ],
                                         },
                                         { key: 'mesas', label: 'Mesas' },
                                         { key: 'reportes', label: 'Reportes' },

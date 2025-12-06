@@ -236,7 +236,7 @@ class ReservPerson extends Component {
 
         console.log('Datos a enviar al Back: ', data);
         try {
-            const response = await fetch(`${url}/admin/search-qr`, {
+            const response = await fetch(`${url}/admin/reserv/search-qr`, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -257,7 +257,7 @@ class ReservPerson extends Component {
                 }
                 // Si response.ok es true (status 200-299)
                 this.setState({
-                    usuarios: Array.isArray(resp.data) ? resp.data : [],
+                    reservaciones: Array.isArray(resp.data) ? resp.data : [],
                     tableParams: {
                         ...tableParams,
                         pagination: {
@@ -268,12 +268,11 @@ class ReservPerson extends Component {
                 });
                 console.log('Reservaciones obtenidas correctamente');
             } else {
-                // Si el servidor respondió con error pero envió JSON
-                throw new Error(resp.mensaje, resp.error || 'Error del servidor');
+                throw new Error( resp.error || 'Error del servidor');
             }
 
         } catch (e) {
-            console.log('4. Error:', e);
+            console.error('4. Error:', e);
             this.OnOffLoader(false, '');
             this.openNotificationWithIcon('error', 'Error al buscar reservaciones', e.message);
         }
@@ -335,12 +334,11 @@ class ReservPerson extends Component {
                 });
                 console.log('Reservaciones obtenidas correctamente');
             } else {
-                // Si el servidor respondió con error pero envió JSON
-                throw new Error(resp.mensaje, resp.error || 'Error del servidor');
+                throw new Error( resp.error || 'Error del servidor');
             }
 
         } catch (e) {
-            console.log('4. Error:', e);
+            console.error('4. Error:', e);
             this.OnOffLoader(false, '');
             this.openNotificationWithIcon('error', 'Error al obtener reservaciones', e.message);
         }
@@ -453,7 +451,7 @@ class ReservPerson extends Component {
                 this.openNotificationWithIcon('success', 'Eliminado satisfactoriamente', resp.mensaje);
                 this.fetchList();
             } else {
-                throw new Error(resp.error ? resp.error : 'Error del servidor');
+                throw new Error(resp.error ?? 'Error del servidor');
             }
 
         } catch (e) {
@@ -502,13 +500,12 @@ class ReservPerson extends Component {
                 this.setState({ user: user });
                 this.updateEstado(1);
             } else {
-                this.openNotificationWithIcon('error', `Error del servidor: \n Status: ${response.status} \n Mensaje: ${resp.error}`);
-                throw new Error(`Error del servidor: \n Status: ${response.status} \n Mensaje: ${resp.error}`);
+                throw new Error(resp.error ?? 'Error del servidor');
             }
 
         } catch (e) {
-            console.error('Error al consultar el usuario seleecionado: \n', e.message);
-            this.openNotificationWithIcon('error', 'Error al extraer información del usuario \n', e.message);
+            console.error('Error al consultar la reservación seleccionada: \n', e.message);
+            this.openNotificationWithIcon('error', 'Error al extraer información de la reservación', e.message);
         }
         this.OnOffLoader(false, '');
     };

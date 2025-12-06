@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import {
     AppstoreOutlined,
+    BarChartOutlined,
+    ContactsFilled,
+    ContactsOutlined,
     ContainerOutlined,
+    ControlFilled,
     DesktopOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     PieChartOutlined,
     QrcodeOutlined,
+    SolutionOutlined,
+    TeamOutlined,
     UploadOutlined,
     UserOutlined,
     VideoCameraOutlined,
@@ -88,9 +94,14 @@ class NavBarAdmin extends Component {
                             onClick={this.handleMenuClick}
                             items={[
                                 {
+                                    key: 'reportes',
+                                    icon: <BarChartOutlined />,
+                                    label: 'Reportes'
+                                },
+                                {
                                     key: 'sub1',
                                     label: 'Administración',
-                                    icon: <PieChartOutlined />,
+                                    icon: <ControlFilled />,
                                     children: [
                                         {
                                             key: 'usuarios',
@@ -104,18 +115,21 @@ class NavBarAdmin extends Component {
                                             children: [
                                                 {
                                                     key: 'reservaciones grupales',
-                                                    icon: <ContainerOutlined />,
+                                                    icon: <TeamOutlined />,
                                                     label: 'Grupales'
                                                 },
                                                 {
                                                     key: 'reservaciones personales',
-                                                    icon: <ContainerOutlined />,
+                                                    icon: <ContactsOutlined />,
                                                     label: 'Personales'
                                                 },
                                             ],
                                         },
-                                        { key: 'mesas', label: 'Mesas' },
-                                        { key: 'reportes', label: 'Reportes' },
+                                        {
+                                            key: 'mesas',
+                                            icon: <SolutionOutlined />,
+                                            label: 'Mesas'
+                                        },
                                     ],
                                 },
                                 {

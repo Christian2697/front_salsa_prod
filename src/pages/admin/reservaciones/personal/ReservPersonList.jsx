@@ -72,7 +72,7 @@ class ReservPersonList extends Component {
                                 </Tooltip>
                                 <Table
                                     columns={columns}
-                                    rowKey={(record) => record.id_reservation}
+                                    rowKey={(record) => record.id_qr}
                                     dataSource={reservaciones}
                                     pagination={tableParams.pagination}
                                     loading={isLoader}

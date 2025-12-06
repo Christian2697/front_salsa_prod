@@ -136,7 +136,7 @@ class ReservPerson extends Component {
                 fixed: 'right',
                 render: (_, record) =>
                     <Tooltip title="Eliminar">
-                        <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteUser(record.id_qr, record.nameReservation, record.name)} />
+                        <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteReserv(record.id_qr, record.nameReservation, record.name)} />
                     </Tooltip>,
             },
         ]
@@ -434,7 +434,7 @@ class ReservPerson extends Component {
         this.updateEstado(1);
     };
 
-    deleteUser = async (id) => {
+    deleteReserv = async (id) => {
         this.OnOffLoader(true, 'Eliminando Reservación...');
         try {
             const response = await fetch(`${this.state.url}/admin/reservation/${id}`, {
@@ -460,7 +460,7 @@ class ReservPerson extends Component {
         }
     };
 
-    isDeleteUser = (id, name, nameReservation) => {
+    isDeleteReserv = (id, name, nameReservation) => {
         console.log(id, name, nameReservation);
         this.openModal({
             typeModal: 'delete',
@@ -469,7 +469,7 @@ class ReservPerson extends Component {
             okText: 'Aceptar',
             cancelText: 'Cancelar',
             onOk: () => {
-                this.deleteUser(id);
+                this.deleteReserv(id);
                 this.closeModal();
             },
             onCancel: () => {

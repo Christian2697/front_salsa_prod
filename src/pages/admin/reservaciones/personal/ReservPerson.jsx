@@ -465,7 +465,7 @@ class ReservPerson extends Component {
         this.openModal({
             typeModal: 'delete',
             titleModal: 'Eliminación en proceso',
-            bodyModal: `¿Seguro que deseas eliminar a ${name} de la reservación de realizada a nombre de ${nameReservation} ? `,
+            bodyModal: `¿Seguro que deseas eliminar a ${name} de la reservación realizada a nombre de ${nameReservation} ? `,
             okText: 'Aceptar',
             cancelText: 'Cancelar',
             onOk: () => {

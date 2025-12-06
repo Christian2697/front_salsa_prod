@@ -437,9 +437,8 @@ class ReservPerson extends Component {
     deleteReserv = async (id) => {
         this.OnOffLoader(true, 'Eliminando Reservación...');
         try {
-            const response = await fetch(`${this.state.url}/admin/reservation/${id}`, {
+            const response = await fetch(`${this.state.url}/admin/reserv/${id}`, {
                 method: 'DELETE',
-                body: JSON.stringify([id]),
                 headers: {
                     'Content-Type': 'application/json'
                 }

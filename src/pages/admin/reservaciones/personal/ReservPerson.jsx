@@ -136,7 +136,7 @@ class ReservPerson extends Component {
                 fixed: 'right',
                 render: (_, record) =>
                     <Tooltip title="Eliminar">
-                        <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteUser(record.id_reservation, record.nameReservation)} />
+                        <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteUser(record.id_qr, record.nameReservation, record.name)} />
                     </Tooltip>,
             },
         ]
@@ -460,12 +460,12 @@ class ReservPerson extends Component {
         }
     };
 
-    isDeleteUser = (id, name) => {
-        console.log(id, name);
+    isDeleteUser = (id, name, nameReservation) => {
+        console.log(id, name, nameReservation);
         this.openModal({
             typeModal: 'delete',
             titleModal: 'Eliminación en proceso',
-            bodyModal: `¿Seguro que deseas eliminar la reservación ${name} ? `,
+            bodyModal: `¿Seguro que deseas eliminar a ${name} de la reservación de realizada a nombre de ${nameReservation} ? `,
             okText: 'Aceptar',
             cancelText: 'Cancelar',
             onOk: () => {

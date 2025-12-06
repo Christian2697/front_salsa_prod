@@ -215,8 +215,6 @@ class ReservPerson extends Component {
         const { tableParams, url, searchParams } = this.state;
         const data = {
             search: searchParams,
-            page: tableParams.pagination.current,
-            limit: tableParams.pagination.pageSize,
         };
 
         // Si hay ordenamiento, lo agregamos directamente

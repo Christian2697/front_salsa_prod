@@ -136,7 +136,7 @@ class ReservPerson extends Component {
                 fixed: 'right',
                 render: (_, record) =>
                     <Tooltip title="Eliminar">
-                        <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteReserv(record.id_qr, record.nameReservation, record.name)} />
+                        <Button shape="circle" icon={<DeleteOutlined />} onClick={() => this.isDeleteReserv(record.id_qr, record.name, record.nameReservation)} />
                     </Tooltip>,
             },
         ]

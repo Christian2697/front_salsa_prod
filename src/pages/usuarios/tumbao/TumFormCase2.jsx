@@ -94,7 +94,7 @@ class TumFormCase2 extends Component {
                                 value={id_payMethod}
                                 onChange={(e) => handlePayChange(e.target.value)}
                             >
-                                <MenuItem value="1">Pagar en línea</MenuItem >
+                                <MenuItem value="1" disabled>Pagar en línea</MenuItem >
                                 <MenuItem value="2">Pagar al llegar al evento</MenuItem >
                             </Select>
                             <FormHelperText>Selecciona un método de pago válido</FormHelperText>

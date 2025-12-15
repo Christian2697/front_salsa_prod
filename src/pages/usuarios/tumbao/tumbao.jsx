@@ -18,13 +18,6 @@ const styles = {
 
 class Tumbao extends Component {
 
-    normalizarTexto = (texto) => {
-        return texto
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase();
-    };
-
     render() {
         let theme = createTheme({
             palette: {
@@ -94,9 +87,7 @@ class Tumbao extends Component {
                                     <Button
                                         color="cyan"
                                         variant="solid"
-                                        to={`/tumbao/reservation`}
                                         onClick={() => this.props.navigate('/tumbao/reservation')}
-                                        // href={`/tumbao/reservation`}
                                         sx={{
                                             fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
                                             padding: { xs: '6px 12px', sm: '8px 16px', md: '10px 20px' },

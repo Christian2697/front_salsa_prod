@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Typography, Box, FormControl, FilledInput, FormHelperText, Paper, Select, MenuItem } from '@mui/material';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import { Button } from 'antd';
-
+import { withRouter } from '../../../components/withRouter';
 
 class TumFormCase2 extends Component {
     render() {
@@ -30,7 +30,7 @@ class TumFormCase2 extends Component {
                     transition={{ duration: 0.7 }}
                 >
 
-                    <Button href={`/tumbao`} color='danger' variant="solid" id="backBtn">
+                    <Button onClick={() => this.props.navigate('/tumbao')} color='danger' variant="solid" id="backBtn">
                         Cancelar
                     </Button>
 
@@ -114,4 +114,5 @@ class TumFormCase2 extends Component {
     }
 }
 
-export default TumFormCase2;
+// eslint-disable-next-line react-refresh/only-export-components
+export default withRouter(TumFormCase2);

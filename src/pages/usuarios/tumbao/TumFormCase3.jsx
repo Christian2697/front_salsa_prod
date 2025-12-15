@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Typography, Paper, Stack, Box, Grid } from '@mui/material';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import { Button, QRCode } from 'antd';
+import { withRouter } from '../../../components/withRouter';
 
 class TumFormCase3 extends Component {
     render() {
@@ -206,7 +207,7 @@ class TumFormCase3 extends Component {
                         </Paper>
                     ))}
 
-                    <Button href={`/tumbao`} color='cyan' variant="solid" id="exitBtn" sx={{ mt: 2, display: 'block', mx: 'auto' }}>
+                    <Button onClick={() => this.props.navigate('/tumbao')} color='cyan' variant="solid" id="exitBtn" sx={{ mt: 2, display: 'block', mx: 'auto' }}>
                         Salir
                     </Button>
                 </motion.div>
@@ -216,4 +217,5 @@ class TumFormCase3 extends Component {
     }
 }
 
-export default TumFormCase3;
+// eslint-disable-next-line react-refresh/only-export-components
+export default withRouter(TumFormCase3);

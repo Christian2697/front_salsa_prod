@@ -21,7 +21,7 @@ import Menu from '@mui/material/Menu';
 const { Header, Content, Footer } = Layout;
 
 const pages = ['Nosotros'];
-const settings = ['Tumbao'];
+const events = ['Tumbao'];
 
 class NavBarUser extends Component {
   constructor(props) {
@@ -261,9 +261,9 @@ class NavBarUser extends Component {
                         open={Boolean(anchorElUser)}
                         onClose={this.handleCloseEventMenu}
                       >
-                        {settings.map((setting) => (
+                        {events.map((event) => (
                           <MenuItem 
-                            key={setting} 
+                            key={event} 
                             onClick={this.handleCloseEventMenu}
                             sx={{
                               '&:hover': {
@@ -272,7 +272,7 @@ class NavBarUser extends Component {
                             }}
                           >
                             <Link
-                              to={`/${this.normalizarTexto(setting)}`}
+                              to={`/${this.normalizarTexto(event)}`}
                               style={{ 
                                 textDecoration: 'none', 
                                 color: 'inherit', 
@@ -280,7 +280,7 @@ class NavBarUser extends Component {
                                 display: 'block'
                               }}
                             >
-                              <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                              <Typography sx={{ textAlign: 'center' }}>{event}</Typography>
                             </Link>
                           </MenuItem>
                         ))}

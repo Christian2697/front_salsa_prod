@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Typography, Box, Container, Paper } from '@mui/material';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { Button, Carousel } from 'antd';
+import { withRouter } from '../../../components/withRouter';
 
 const styles = {
     imagenes: {
@@ -16,6 +17,13 @@ const styles = {
 }
 
 class Tumbao extends Component {
+
+    normalizarTexto = (texto) => {
+        return texto
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+    };
 
     render() {
         let theme = createTheme({
@@ -86,7 +94,9 @@ class Tumbao extends Component {
                                     <Button
                                         color="cyan"
                                         variant="solid"
-                                        href={`/tumbao/reservation`}
+                                        to={`/tumbao/reservation`}
+                                        onClick={() => this.props.navigate('/tumbao/reservation')}
+                                        // href={`/tumbao/reservation`}
                                         sx={{
                                             fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
                                             padding: { xs: '6px 12px', sm: '8px 16px', md: '10px 20px' },
@@ -166,4 +176,5 @@ class Tumbao extends Component {
     }
 }
 
-export default Tumbao;
+// eslint-disable-next-line react-refresh/only-export-components
+export default withRouter(Tumbao);

@@ -50,7 +50,6 @@ class NavBarAdmin extends Component {
 
         const route = routeMap[menuItem.key];
         if (route) {
-            // Usar window.location para redirección
             this.props.navigate(route);
         }
     };

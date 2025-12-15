@@ -363,6 +363,41 @@ class TumbaoReservation extends Component {
     }
   }
 
+  omitirUsuario = () => {
+    const { contador, numAsistentes } = this.state;
+    if (contador === 1) {
+      console.log('No se puede omitir este usuario porque es el primer usuario a registrar');
+      this.openNotificationWithIcon(
+        'error',
+        `Asistente ${contador}`,
+        'No se puede omitir este usuario porque es el primer usuario a registrar');
+    } else {
+      console.log('Se omitió el registro de un usuario');
+      this.clearFormAsis();
+      if (contador == numAsistentes) {
+        console.log('Iteración num: ', contador, ' Asistentes Totales: ', contador -1);
+        this.openModal({
+          typeModal: 'success',
+          titleModal: `Asistente ${contador} omitido`,
+          bodyModal: 'Todos los asistentes han sido regitrados con éxito',
+          okText: 'Continuar',
+          cancelText: '',
+          onOk: () => {
+            this.clearFormAsis();
+            this.OnOffLoader(true, 'Obteniendo información de los asistentes...');
+            this.getAsis();
+          },
+        });
+      } else {
+        this.openNotificationWithIcon(
+        'success',
+        `Asistente ${contador} omitido`,
+        `Se omitió el registro del usuario ${contador} `);
+        this.updateContador(contador + 1);
+      }
+    }
+  }
+
   createQrClick = async (e) => {
     e.preventDefault();
     this.OnOffLoader(true, 'Generando Códigos QR...');
@@ -503,6 +538,7 @@ class TumbaoReservation extends Component {
                             contador={this.state.contador}
                             handleSubmitUser={(e) => this.handleSubmitUser(e)}
                             handleFormAsisChange={(name, e) => this.handleFormAsisChange(name, e)}
+                            omitirUsuario={this.omitirUsuario}
                           />
                         )
 

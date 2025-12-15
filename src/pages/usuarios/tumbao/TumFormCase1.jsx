@@ -19,7 +19,7 @@ class TumFormCase1 extends Component {
     });
     theme = responsiveFontSizes(theme);
 
-    const { handleFormAsisChange, handleSubmitUser, contador, asistente, nameReservation, errorMensaje, error } = this.props
+    const { handleFormAsisChange, handleSubmitUser, contador, nameReservation, omitirUsuario } = this.props
     return (
       <ThemeProvider theme={theme}>
 
@@ -141,14 +141,31 @@ class TumFormCase1 extends Component {
               <FormHelperText>Ingresa un correo válido</FormHelperText>
             </FormControl>
 
-            <Button type="submit" color='cyan' variant="solid" id="nextBtn" htmlType="submit">
+            <Button type="submit" color='cyan' variant="solid" id="nextBtn" htmlType="submit"
+              style={{
+                padding: '10px 20px',
+                margin: '10px 20px'
+              }}>
               Siguiente
             </Button>
+
+            {contador === 1
+              ?
+              null
+              :
+              <Button onClick={omitirUsuario} color='danger' variant="filled" id="omitirBtn"
+                style={{
+                  padding: '10px 20px',
+                  margin: '10px 20px'
+                }}>
+                Omitir el registro de este usuario
+              </Button>
+            }
 
           </Box>
 
         </motion.div>
-      </ThemeProvider>
+      </ThemeProvider >
 
 
 

@@ -13,8 +13,10 @@ class Nosotros extends Component {
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.3 }}
             >
-                <Typography variant="h4">Bienvenido a Nosotros</Typography>
-                <p>Hola mundo nosotros</p>
+                <Typography variant="h4">Familia Tumbao Cubano</Typography>
+                <p>Un espacio para hablar acerca de nosotros, de quienes somos, 
+                    de dónde contactarnos, nuestra ubicación e incluso un mapa 
+                    de dónde se realizan todos los eventos que se organizan...</p>
             </motion.div>
         )
     }
